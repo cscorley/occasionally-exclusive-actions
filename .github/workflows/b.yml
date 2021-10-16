@@ -7,8 +7,10 @@ on:
     paths:
       - "b/**"
 jobs:
-  echo-job:
+  change-job:
     runs-on: ubuntu-latest
+    outputs:
+      has_other_changes: ${{steps.other-changes.outputs.changed}}
 
     steps:
       - uses: actions/checkout@v2
@@ -20,6 +22,10 @@ jobs:
         with:
           paths: ":!b*"
 
+  echo-job:
+    needs: change-job
+    runs-on: ubuntu-latest
+    if: needs.change-job.outputs.has_other_changes != 'true'
+    steps:
       - name: Echo for b
-        if: steps.other-changes.outputs.changed != 'true'
         run: echo "hello from B"
