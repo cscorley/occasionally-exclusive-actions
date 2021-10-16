@@ -5,10 +5,21 @@ on:
     branches:
       - main
     paths:
-      - "!**"
       - "b/**"
 jobs:
   echo-job:
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "hello from B"
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - uses: marceloprado/has-changed-path@v1
+        id: other-changes
+        with:
+          paths: ":!b*"
+
+      - name: Echo for b
+        if: steps.other-changes.outputs.changed != 'true'
+        run: echo "hello from B"
