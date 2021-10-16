@@ -1,0 +1,13 @@
+name: A and B
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "b/**"
+jobs:
+  echo-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "hello from A"

@@ -1,0 +1,14 @@
+name: B Only
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "b/**"
+      - "!**"
+jobs:
+  echo-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "hello from B"
