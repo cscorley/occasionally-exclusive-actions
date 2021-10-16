@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - "!b/**"
+    paths:
+      - "b/**"
 jobs:
   echo-job:
     runs-on: ubuntu-latest
